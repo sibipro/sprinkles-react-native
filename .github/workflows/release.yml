@@ -1,0 +1,10 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  release:
+    uses: sibipro/claude-ci-workflows/.github/workflows/release.yml@main
+    secrets: inherit

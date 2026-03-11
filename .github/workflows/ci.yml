@@ -1,0 +1,11 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pipeline:
+    uses: sibipro/claude-ci-workflows/.github/workflows/pipeline.yml@main
+    secrets: inherit

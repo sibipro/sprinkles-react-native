@@ -1,0 +1,41 @@
+{
+  "name": "@sibipro/sprinkles-native",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.6.2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles.css": "./src/styles/global.css"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "tsc",
+    "test": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "@types/react": "^19.0.0",
+    "@types/react-native": "^0.73.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.74.0",
+    "uniwind": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "uniwind": {
+      "optional": true
+    }
+  }
+}
