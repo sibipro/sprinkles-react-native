@@ -1,0 +1,245 @@
+@import 'tailwindcss';
+@import 'uniwind';
+
+@theme {
+  /* Brand Colors - Primary UI actions */
+  --color-brand-25: #f0f1fd;
+  --color-brand-50: #dddff9;
+  --color-brand-100: #c1c4ee;
+  --color-brand-200: #a2a6e5;
+  --color-brand-300: #8388dd;
+  --color-brand-400: #646bd4;
+  --color-brand-500: #454dcc;
+  --color-brand-600: #3a40aa;
+  --color-brand-700: #2e3388;
+  --color-brand-800: #232766;
+  --color-brand-900: #171a44;
+
+  /* Neutral Colors - Grays and backgrounds */
+  --color-neutral-25: #fcfcff;
+  --color-neutral-50: #f8f9ff;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #a9b6c9;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+
+  /* Info Colors - Informative states */
+  --color-info-25: #ebf2ff;
+  --color-info-50: #d8e6fd;
+  --color-info-100: #bed5fc;
+  --color-info-200: #9dc0fb;
+  --color-info-300: #7cacf9;
+  --color-info-400: #5c97f8;
+  --color-info-500: #3b82f6;
+  --color-info-600: #316ccd;
+  --color-info-700: #2757a4;
+  --color-info-800: #1d417b;
+  --color-info-900: #142b52;
+
+  /* Success Colors - Success states */
+  --color-success-25: #e4f9f2;
+  --color-success-50: #d3f4e9;
+  --color-success-100: #b5ecda;
+  --color-success-200: #90e2c7;
+  --color-success-300: #6bd9b4;
+  --color-success-400: #46d0a2;
+  --color-success-500: #21c68f;
+  --color-success-600: #1ca577;
+  --color-success-700: #16845f;
+  --color-success-800: #106347;
+  --color-success-900: #0b4230;
+
+  /* Warn Colors - Warning states */
+  --color-warn-25: #fff7eb;
+  --color-warn-50: #fef1db;
+  --color-warn-100: #fee7c2;
+  --color-warn-200: #ffe1b1;
+  --color-warn-300: #ffd797;
+  --color-warn-400: #ffcd7d;
+  --color-warn-500: #ffc363;
+  --color-warn-600: #d29d49;
+  --color-warn-700: #806131;
+  --color-warn-800: #6c4b15;
+  --color-warn-900: #554121;
+
+  /* Danger Colors - Error and danger states */
+  --color-danger-25: #ffe7f1;
+  --color-danger-50: #fbd5e5;
+  --color-danger-100: #f9b9d4;
+  --color-danger-200: #f696be;
+  --color-danger-300: #f374a9;
+  --color-danger-400: #f05193;
+  --color-danger-500: #ef3f89;
+  --color-danger-600: #cf4880;
+  --color-danger-700: #a1285b;
+  --color-danger-800: #791e44;
+  --color-danger-900: #51142d;
+
+  /* Font Families */
+  --font-sans: NunitoSans_400Regular;
+  --font-sans-regular: NunitoSans_400Regular;
+  --font-sans-semibold: NunitoSans_600SemiBold;
+  --font-sans-bold: NunitoSans_700Bold;
+  --font-mono: SpaceMono;
+}
+
+@layer theme {
+  :root {
+    @variant light {
+      /* Background */
+      --color-background: #ffffff;
+      --color-background-secondary: #f8f9ff;
+      --color-background-tertiary: #f1f5f9;
+      --color-background-quaternary: #e2e8f0;
+
+      /* Foreground (text) */
+      --color-foreground: #334155;
+      --color-foreground-heading: #0f172a;
+      --color-foreground-label: #64748b;
+
+      /* Border */
+      --color-border: #cbd5e1;
+      --color-border-alt: #f1f5f9;
+      --color-border-secondary: #e2e8f0;
+      --color-border-tertiary: #f1f5f9;
+
+      /* Link */
+      --color-link: #454dcc;
+
+      /* Ring (focus) */
+      --color-ring: #646bd4;
+
+      /* Shadow */
+      --color-shadow: #0f172a;
+
+      /* Outline */
+      --color-outline: #cbd5e1;
+
+      /* Accent */
+      --color-accent: #f8f9ff;
+      --color-accent-foreground: #334155;
+
+      /* Button - Primary */
+      --color-button-primary: #454dcc;
+      --color-button-primary-foreground: #ffffff;
+      --color-button-primary-hover: #3a40aa;
+
+      /* Button - Secondary */
+      --color-button-secondary: #ffffff;
+      --color-button-secondary-foreground: #475569;
+      --color-button-secondary-hover: #f8f9ff;
+
+      /* Button - Tertiary */
+      --color-button-tertiary-foreground: #475569;
+      --color-button-tertiary-hover: #f8f9ff;
+
+      /* Popover */
+      --color-popover: #ffffff;
+      --color-popover-foreground: #334155;
+
+      /* Tooltip */
+      --color-tooltip: #171a44;
+      --color-tooltip-foreground: #ffffff;
+
+      /* Toast */
+      --color-toast: #171a44;
+      --color-toast-foreground: #ffffff;
+      --color-toast-danger: #cf4880;
+      --color-toast-danger-foreground: #ffffff;
+
+      /* Actionbar */
+      --color-actionbar: #0f172a;
+      --color-actionbar-foreground: #ffffff;
+
+      /* Dialog */
+      --color-dialog: #ffffff;
+      --color-dialog-foreground: #334155;
+      --color-dialog-backdrop: #1e293b66;
+
+      /* Card */
+      --color-card-shadow-from: #fcfcff;
+      --color-card-shadow-to: #334155;
+    }
+
+    @variant dark {
+      /* Backgrounds */
+      --color-background: #0f172a;
+      --color-background-secondary: #1e293b;
+      --color-background-tertiary: #334155;
+      --color-background-quaternary: #475569;
+
+      /* Foreground (text) */
+      --color-foreground: #e2e8f0;
+      --color-foreground-heading: #f8f9ff;
+      --color-foreground-label: #a9b6c9;
+
+      /* Border */
+      --color-border: #475569;
+      --color-border-alt: #1e293b;
+      --color-border-secondary: #334155;
+      --color-border-tertiary: #1e293b;
+
+      /* Link */
+      --color-link: #8388dd;
+
+      /* Ring (focus) */
+      --color-ring: #8388dd;
+
+      /* Shadow */
+      --color-shadow: #f8f9ff;
+
+      /* Outline */
+      --color-outline: #475569;
+
+      /* Accent */
+      --color-accent: #1e293b;
+      --color-accent-foreground: #e2e8f0;
+
+      /* Button - Primary */
+      --color-button-primary: #646bd4;
+      --color-button-primary-foreground: #ffffff;
+      --color-button-primary-hover: #8388dd;
+
+      /* Button - Secondary */
+      --color-button-secondary: #1e293b;
+      --color-button-secondary-foreground: #cbd5e1;
+      --color-button-secondary-hover: #334155;
+
+      /* Button - Tertiary */
+      --color-button-tertiary-foreground: #cbd5e1;
+      --color-button-tertiary-hover: #334155;
+
+      /* Popover */
+      --color-popover: #1e293b;
+      --color-popover-foreground: #e2e8f0;
+
+      /* Tooltip */
+      --color-tooltip: #ffffff;
+      --color-tooltip-foreground: #0f172a;
+
+      /* Toast */
+      --color-toast: #e2e8f0;
+      --color-toast-foreground: #0f172a;
+      --color-toast-danger: #f696be;
+      --color-toast-danger-foreground: #0f172a;
+
+      /* Actionbar */
+      --color-actionbar: #ffffff;
+      --color-actionbar-foreground: #0f172a;
+
+      /* Dialog */
+      --color-dialog: #1e293b;
+      --color-dialog-foreground: #e2e8f0;
+      --color-dialog-backdrop: #0f172a99;
+
+      /* Card */
+      --color-card-shadow-from: #0f172a;
+      --color-card-shadow-to: #e2e8f0;
+    }
+  }
+}
