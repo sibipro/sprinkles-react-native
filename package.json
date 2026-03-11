@@ -1,6 +1,6 @@
 {
   "name": "@sibipro/sprinkles-native",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "license": "UNLICENSED",
   "packageManager": "pnpm@10.6.2",
