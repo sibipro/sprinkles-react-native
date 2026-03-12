@@ -5,7 +5,35 @@ on:
   push:
     branches: [main]
 
+env:
+  NODE_VERSION: "22"
+
 jobs:
   pipeline:
-    uses: sibipro/claude-ci-workflows/.github/workflows/pipeline.yml@main
-    secrets: inherit
+    runs-on: blacksmith-2vcpu-ubuntu-2204
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Enforce pnpm usage
+        run: pnpm dlx only-allow pnpm
+
+      - name: Enforce minimum-release-age
+        run: (cat .npmrc 2>/dev/null; echo "minimum-release-age=10080") | sort | uniq > .npmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests
+        run: pnpm test
