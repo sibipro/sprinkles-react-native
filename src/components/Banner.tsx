@@ -5,10 +5,10 @@ import { cn } from '../utils/cn';
 export type BannerVariant = 'info' | 'warn' | 'danger' | 'success';
 
 const variantClasses: Record<BannerVariant, string> = {
-  info: 'bg-info-25 border-info-300',
-  warn: 'bg-warn-25 border-warn-300',
-  danger: 'bg-danger-25 border-danger-300',
-  success: 'bg-success-25 border-success-300',
+  info: 'bg-info-50 dark:bg-info-900',
+  warn: 'bg-warn-50 dark:bg-warn-900',
+  danger: 'bg-danger-50 dark:bg-danger-900',
+  success: 'bg-success-50 dark:bg-success-900',
 };
 
 export interface BannerProps extends ViewProps {
@@ -24,7 +24,7 @@ export function Banner({
   return (
     <View
       className={cn(
-        'rounded-lg border p-3 flex-row items-start gap-2',
+        'rounded-2xl p-4 flex-row items-start gap-2.5',
         variantClasses[variant],
         className,
       )}

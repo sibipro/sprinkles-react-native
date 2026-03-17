@@ -14,11 +14,11 @@ export type BadgeVariant =
 
 const variantClasses: Record<BadgeVariant, string> = {
   default: 'bg-background-tertiary',
-  brand: 'bg-brand-25',
-  danger: 'bg-danger-25',
-  success: 'bg-success-25',
-  warn: 'bg-warn-25',
-  info: 'bg-info-25',
+  brand: 'bg-brand-50 dark:bg-brand-900',
+  danger: 'bg-danger-50 dark:bg-danger-900',
+  success: 'bg-success-50 dark:bg-success-900',
+  warn: 'bg-warn-50 dark:bg-warn-900',
+  info: 'bg-info-50 dark:bg-info-900',
   outline: 'border border-border',
 };
 
@@ -47,7 +47,7 @@ export function Badge({
   return (
     <View
       className={cn(
-        'h-6 rounded-full px-2.5 flex-row items-center gap-1',
+        'rounded-lg py-1.5 px-2.5 flex-row items-center gap-1.5',
         variantClasses[variant],
         className,
       )}
@@ -55,7 +55,7 @@ export function Badge({
     >
       {typeof children === 'string' ? (
         <Text
-          size="sm"
+          size="xs"
           weight="semibold"
           className={textClasses[variant]}
           numberOfLines={1}

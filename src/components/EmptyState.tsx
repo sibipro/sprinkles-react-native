@@ -26,11 +26,11 @@ export function EmptyState({
     >
       {icon}
       <View className="items-center gap-1">
-        <Text variant="heading" className="text-center">
+        <Text variant="heading" className="text-2xl text-center">
           {title}
         </Text>
         {description && (
-          <Text className="text-foreground-label text-center">
+          <Text className="text-lg text-foreground text-center">
             {description}
           </Text>
         )}

@@ -21,7 +21,7 @@ const variantClasses: Record<InputVariant, string> = {
 const girthClasses: Record<InputGirth, string> = {
   sm: 'h-8',
   md: 'h-10',
-  lg: 'h-12',
+  lg: 'min-h-[48px] py-3',
 };
 
 export interface InputProps extends TextInputProps {
@@ -37,11 +37,11 @@ export const Input = React.forwardRef<TextInput, InputProps>(
       <TextInput
         ref={ref}
         className={cn(
-          'w-full rounded-lg px-3 text-sm text-foreground',
+          'w-full rounded-xl px-4 text-base text-foreground',
           variantClasses[variant],
           girthClasses[girth],
-          error && 'border-danger-500',
-          props.editable === false && 'opacity-50',
+          error && 'border-2 border-danger-500',
+          props.editable === false && 'opacity-60',
           className,
         )}
         {...props}
@@ -68,8 +68,8 @@ export const InputWithExtras = React.forwardRef<TextInput, InputWithExtrasProps>
             'flex-row items-center gap-1',
             variantClasses[variant],
             girthClasses[girth],
-            'rounded-lg px-3',
-            error && 'border-danger-500',
+            'rounded-xl px-4',
+            error && 'border-2 border-danger-500',
             containerClassName,
           )}
         >
