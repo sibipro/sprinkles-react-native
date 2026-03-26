@@ -26,12 +26,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
-      - name: Enforce pnpm usage
-        run: pnpm dlx only-allow pnpm
-
-      - name: Enforce minimum-release-age
-        run: (cat .npmrc 2>/dev/null; echo "minimum-release-age=10080") | sort | uniq > .npmrc
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 

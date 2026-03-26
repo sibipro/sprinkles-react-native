@@ -1,24 +1,32 @@
 {
   "name": "@sibipro/sprinkles-native",
   "version": "0.1.5",
+  "description": "React Native UI component library with Tailwind theming",
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "packageManager": "pnpm@10.6.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src/styles",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "!src/**/*.test.*"
+  ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "source": "./src/index.ts"
     },
     "./styles.css": "./src/styles/global.css"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "tsc",
-    "test": "node -e \"require('child_process').execSync('tsc --noEmit',{stdio:'inherit'})\"",
+    "test": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "deploy": "pnpm build",
     "release": "pnpm version patch --no-git-tag-version && git add package.json && git commit -m \"release: v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\") && git push && git push --tags"
   },
   "dependencies": {
@@ -26,9 +34,9 @@
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
-    "typescript": "^5.7.0",
     "@types/react": "^19.0.0",
-    "@types/react-native": "^0.73.0"
+    "@types/react-native": "^0.73.0",
+    "typescript": "^5.7.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

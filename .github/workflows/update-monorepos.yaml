@@ -1,0 +1,120 @@
+name: Update Monorepos Dependency
+
+on:
+  release:
+    types: [released]
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: blacksmith-4vcpu-ubuntu-2204-arm
+    outputs:
+      repos: ${{ steps.find.outputs.repos }}
+      package: ${{ steps.vars.outputs.package }}
+      version: ${{ steps.vars.outputs.version }}
+    steps:
+      - name: Checkout this repo to tmp
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          token: ${{ secrets.PAT_TOKEN }}
+          path: tmp
+
+      - name: Get package name and version
+        id: vars
+        working-directory: tmp
+        run: |
+          echo "package=$(jq -r '.name' package.json)" >> "$GITHUB_OUTPUT"
+          echo "version=$(jq -r '.version' package.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up GitHub CLI
+        uses: actions/setup-node@v4
+
+      - name: Discover dependent repos
+        id: find
+        run: |
+          REPOS_JSON=$(gh api search/code \
+           --method GET \
+           -f q='org:${{ github.repository_owner }} "${{ steps.vars.outputs.package }}" in:file filename:package.json' \
+           --jq '[.items[].repository.full_name | select(. != "${{ github.repository }}")] | unique | sort')
+          echo "Debug - Found repos: $REPOS_JSON"
+          echo "repos=$REPOS_JSON" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+  update-deps:
+    needs: discover
+    runs-on: blacksmith-4vcpu-ubuntu-2204-arm
+    strategy:
+      matrix:
+        repo: ${{ fromJson(needs.discover.outputs.repos) }}
+
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: "generate temporary npmrc"
+        run: |
+          mkdir -p tmp
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PAT_TOKEN }}" > tmp/.npmrc
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install latest corepack
+        run: npm install --global corepack@latest
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Update Dependency with pnpm
+        if: ${{ hashFiles('pnpm-lock.yaml') != '' }}
+        run: |
+          pnpm update -r "${{ needs.discover.outputs.package }}@${{ needs.discover.outputs.version }}" --prod
+
+      - name: Update Dependency with yarn
+        if: ${{ hashFiles('yarn.lock') != '' }}
+        run: |
+          yarn install
+          yarn update "${{ needs.discover.outputs.package }}@${{ needs.discover.outputs.version }}"
+        env:
+          NPM_CONFIG_USERCONFIG: ./tmp/.npmrc
+          NPM_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Update Dependency with npm
+        if: ${{ hashFiles('package-lock.json') != '' }}
+        run: |
+          npm ci
+          npm update "${{ needs.discover.outputs.package }}@${{ needs.discover.outputs.version }}"
+
+      - name: Fallback (no lockfile)
+        if: ${{ hashFiles('pnpm-lock.yaml') == '' && hashFiles('yarn.lock') == '' && hashFiles('package-lock.json') == '' }}
+        run: |
+          echo "No pnpm, yarn, or npm lockfile found; updating via npm."
+          npm update "${{ needs.discover.outputs.package }}@${{ needs.discover.outputs.version }}"
+
+      - name: Remove temporary files
+        run: rm -rf tmp
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          draft: false
+          branch: "🦞/${{ needs.discover.outputs.package }}/${{ needs.discover.outputs.version }}"
+          title: "🦞 ${{ needs.discover.outputs.package }} to ${{ needs.discover.outputs.version }}"
+          body: |
+            Automatically updating ${{ needs.discover.outputs.package }} in `${{ matrix.repo }}` to version ${{ needs.discover.outputs.version }}.
+            The repo for this package is: ${{ github.repositoryUrl }}.
+
+            Release Notes: ${{ github.event.release.html_url || '' }}
+          labels: "dependencies, automation"
+          add-paths: .
