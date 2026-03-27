@@ -20,8 +20,7 @@ jobs:
         with:
           name: package-files
       - uses: actions/setup-node@v4
-        with:
-          registry-url: "https://registry.npmjs.org"
+      - run: npm config set registry https://registry.npmjs.org/
       - run: npm publish --provenance --access public
 
   publish_github_package:
