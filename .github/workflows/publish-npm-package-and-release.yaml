@@ -21,8 +21,8 @@ jobs:
           name: package-files
       - uses: actions/setup-node@v4
         with:
+          node-version: "24.x"
           registry-url: "https://registry.npmjs.org"
-      - run: npm install -g npm@latest
       - run: npm publish --provenance --access public
 
   publish_github_package:
