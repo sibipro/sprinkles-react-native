@@ -1,9 +1,13 @@
 {
   "name": "@sibipro/sprinkles-native",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "React Native UI component library with Tailwind theming",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sibipro/sprinkles-react-native.git"
+  },
   "packageManager": "pnpm@10.6.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
