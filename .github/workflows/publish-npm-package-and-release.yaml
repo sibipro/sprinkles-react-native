@@ -13,6 +13,7 @@ jobs:
     needs: build-and-test
     runs-on: blacksmith-4vcpu-ubuntu-2204-arm
     permissions:
+      contents: read
       id-token: write
     steps:
       - uses: actions/download-artifact@v4
@@ -27,6 +28,7 @@ jobs:
     needs: build-and-test
     runs-on: blacksmith-4vcpu-ubuntu-2204-arm
     permissions:
+      contents: read
       packages: write
     steps:
       - uses: actions/download-artifact@v4
