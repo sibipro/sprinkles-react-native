@@ -1,6 +1,6 @@
 {
   "name": "@sibipro/sprinkles-native",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "React Native UI component library with Tailwind theming",
   "type": "module",
   "license": "MIT",
